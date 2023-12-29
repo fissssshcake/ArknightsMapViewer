@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -16,13 +16,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Visual Studio environment
-      shell: powershell
+    - name: Set Visual Studio environment
       run: |
         $vsPath = & 'C:\ProgramData\Chocolatey\bin\vswhere.exe' -products * -requires Microsoft.Component.MSBuild -property installationPath -latest
-        Write-Output "##[set-env name=VISUAL_STUDIO_PATH]$vsPath"
+        Write-Output "VISUAL_STUDIO_PATH=$vsPath" >> $GITHUB_ENV
 
-    - name: Build solution
-      shell: powershell
+    - name: Use Visual Studio path
       run: |
-        msbuild.exe ArknightsMapViewer.sln /p:Configuration=Release
+        echo "Visual Studio path: $VISUAL_STUDIO_PATH"
+        # Ensure the environment variable is set correctly
+        # Run the msbuild command
+        & "$env:VISUAL_STUDIO_PATH\MSBuild\Current\Bin\MSBuild.exe" ArknightsMapViewer.sln /p:Configuration=Release
