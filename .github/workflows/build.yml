@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
 jobs:
   build:
     runs-on: windows-latest
@@ -26,4 +23,4 @@ jobs:
         echo "Visual Studio path: $VISUAL_STUDIO_PATH"
         # Ensure the environment variable is set correctly
         # Run the msbuild command
-        & "$env:VISUAL_STUDIO_PATH\MSBuild\Current\Bin\MSBuild.exe" ArknightsMapViewer.sln /p:Configuration=Release
+        & "$env:VISUAL_STUDIO_PATH\MSBuild\Current\Bin\MSBuild.exe" YourSolution.sln /p:Configuration=Release /restore
