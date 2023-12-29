@@ -22,12 +22,14 @@ jobs:
     - name: Create Release directory
       run: |
         mkdir .\Release
+        ls .\
         
     - name: Use MSBuild path
       run: |
-        echo "MSBuild path: $env:MSBUILD_PATH"
+        echo "MSBUILD_PATH=$msbuildPath"
         # Run the MSBuild command using the MSBuild path stored in the environment variable
         cmd /c "$msbuildPath" ArknightsMapViewer.sln /p:Configuration=Release /p:OutputPath=.\Release
+        
         
 
 
