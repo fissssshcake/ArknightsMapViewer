@@ -15,8 +15,8 @@ jobs:
 
     - name: Setup .NET Core SDK
       run: |
-        wget https://download.microsoft.com/download/3/5/9/35980F81-60F4-4DE3-88FC-8F962B97253B/NDP461-KB3102438-Web.exe
-        NDP461-KB3102438-Web.exe /quiet /install
+        Invoke-WebRequest -Uri 'https://download.microsoft.com/download/3/5/9/35980F81-60F4-4DE3-88FC-8F962B97253B/NDP461-KB3102438-Web.exe' -OutFile 'dotnet-devpack.exe'
+        dotnet-devpack.exe /quiet /install
 
     - name: Create Release directory
       run: |
