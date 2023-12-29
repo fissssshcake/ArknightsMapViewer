@@ -19,4 +19,4 @@ jobs:
     - name: Build solution
       run: |
         # Run MSBuild command to build the solution
-        MSBuild.exe YourSolution.sln /p:Configuration=Release
+        MSBuild.exe ArknightsMapViewer.sln /p:Configuration=Release
