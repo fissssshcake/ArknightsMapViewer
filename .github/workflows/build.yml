@@ -20,6 +20,10 @@ jobs:
         echo "MSBUILD_PATH=$msbuildPath"
         echo "MSBUILD_PATH=$msbuildPath" >> $GITHUB_ENV
         
+    - name: Print all environment variables
+      run: printenv
+
+        
     - name: Create Release directory
       run: |
         mkdir .\Release
