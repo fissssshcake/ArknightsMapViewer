@@ -14,11 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4.0.0
-      with:
-        # Optional SDK version(s) to use. If not provided, will install global.json version when available. Examples: 2.2.104, 3.1, 3.1.x, 3.x, 6.0.2xx
-        dotnet-version: 6.0.2xx # optional
-      
+      run: |
+        wget https://download.microsoft.com/download/3/5/9/35980F81-60F4-4DE3-88FC-8F962B97253B/NDP461-KB3102438-Web.exe
+        NDP461-KB3102438-Web.exe /quiet /install
+
     - name: Create Release directory
       run: |
         mkdir .\Release
