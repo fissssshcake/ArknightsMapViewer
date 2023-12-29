@@ -17,6 +17,7 @@ jobs:
       run: |
         # Use vswhere to find MSBuild executable path
         $msbuildPath = & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
+        echo "MSBUILD_PATH=$msbuildPath"
         echo "MSBUILD_PATH=$msbuildPath" >> $GITHUB_ENV
         
     - name: Create Release directory
@@ -28,6 +29,7 @@ jobs:
         echo "MSBuild path: $env:MSBUILD_PATH"
         # Run the MSBuild command using the MSBuild path stored in the environment variable
         cmd /c "$env:MSBUILD_PATH" ArknightsMapViewer.sln /p:Configuration=Release /p:OutputPath=.\Release
+        
 
 
     - name: Publish artifacts
