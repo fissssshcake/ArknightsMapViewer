@@ -14,9 +14,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up MSBuild
-      uses: microsoft/setup-msbuild@v1.0.0
-
-    - name: Build solution
       run: |
-        # Run MSBuild command to build the solution
-        MSBuild.exe ArknightsMapViewer.sln /p:Configuration=Release
+        # Use vswhere to find MSBuild executable path
+        $msbuildPath = & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
+        echo "MSBUILD_PATH=$msbuildPath" >> $GITHUB_ENV
+
+    - name: Use MSBuild path
+      run: |
+        echo "MSBuild path: $MSBUILD_PATH"
+        # Run the MSBuild command without adding the path to the environment
+        # Use the MSBuild path directly in the command
+        & "$MSBUILD_PATH" ArknightsMapViewer.sln /p:Configuration=Release
+
