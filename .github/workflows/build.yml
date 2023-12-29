@@ -25,3 +25,10 @@ jobs:
         # Run the MSBuild command using the MSBuild path stored in the environment variable
         cmd /c "$env:MSBUILD_PATH" ArknightsMapViewer.sln /p:Configuration=Release
 
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: path/to/your/generated/files
+
+
