@@ -13,14 +13,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set Visual Studio environment
-      run: |
-        $vsPath = & 'C:\ProgramData\Chocolatey\bin\vswhere.exe' -products * -requires Microsoft.Component.MSBuild -property installationPath -latest
-        Write-Output "VISUAL_STUDIO_PATH=$vsPath" >> $GITHUB_ENV
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
 
-    - name: Use Visual Studio path
+    - name: Build solution
       run: |
-        echo "Visual Studio path: $VISUAL_STUDIO_PATH"
-        # Ensure the environment variable is set correctly
-        # Run the msbuild command
-        & "$env:VISUAL_STUDIO_PATH\MSBuild\Current\Bin\MSBuild.exe" ArknightsMapViewer.sln /p:Configuration=Release /restore
+        # Run MSBuild command to build the solution
+        MSBuild.exe YourSolution.sln /p:Configuration=Release
