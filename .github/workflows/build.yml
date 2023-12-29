@@ -31,4 +31,17 @@ jobs:
         name: my-artifact
         path: path/to/your/generated/files
 
+    - name: Create Release directory
+      run: |
+        mkdir .Release
 
+    - name: Copy build artifacts
+      run: |
+        # Copy files from the build output directory to .Release
+        Copy-Item -Path .\ArknightsMapViewer\bin\Release\* -Destination .\.Release -Recurse -Force
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-artifact
+        path: .Release
