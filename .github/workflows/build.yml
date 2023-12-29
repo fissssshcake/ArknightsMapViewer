@@ -21,8 +21,7 @@ jobs:
 
     - name: Use MSBuild path
       run: |
-        echo "MSBuild path: $MSBUILD_PATH"
-        # Run the MSBuild command without adding the path to the environment
-        # Use the MSBuild path directly in the command
-        & "$MSBUILD_PATH" ArknightsMapViewer.sln /p:Configuration=Release
+        echo "MSBuild path: $env:MSBUILD_PATH"
+        # Run the MSBuild command using Invoke-Expression to execute the path stored in the variable
+        Invoke-Expression "& `"$env:MSBUILD_PATH`" ArknightsMapViewer.sln /p:Configuration=Release"
 
