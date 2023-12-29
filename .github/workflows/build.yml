@@ -12,12 +12,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up MSBuild
-      run: |
-        # Use vswhere to find MSBuild executable path
-        $msbuildPath = & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
-        echo "MSBUILD_PATH=$msbuildPath"   
         
     - name: Create Release directory
       run: |
@@ -26,12 +20,12 @@ jobs:
         
     - name: Use MSBuild path
       run: |
+        $msbuildPath = & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe
         echo "MSBUILD_PATH=$msbuildPath"
         # Run the MSBuild command using the MSBuild path stored in the environment variable
         cmd /c "$msbuildPath" ArknightsMapViewer.sln /p:Configuration=Release /p:OutputPath=.\Release
-        
-        
-
+        ls .\Release
+                
 
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
