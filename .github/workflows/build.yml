@@ -1,17 +1,25 @@
-name: Build
+name: Build Visual Studio Project
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: windows-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.0.1
+    - name: Set up Visual Studio environment
+      shell: powershell
+      run: |
+        $vsPath = & 'C:\ProgramData\Chocolatey\bin\vswhere.exe' -products * -requires Microsoft.Component.MSBuild -property installationPath -latest
+        Write-Output "##[set-env name=VISUAL_STUDIO_PATH]$vsPath"
 
     - name: Build solution
-      run: msbuild YourSolution.sln /p:Configuration=Release
+      shell: powershell
+      run: |
+        msbuild.exe ArknightsMapViewer.sln /p:Configuration=Release
